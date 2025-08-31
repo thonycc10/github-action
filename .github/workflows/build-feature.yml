@@ -1,0 +1,27 @@
+#crear un workflow que compile un Proyecto maven de java y ejecute los test unitarios
+name: build and test feature branch
+on:
+  push:
+    branches:
+      - feature/*
+
+jobs:
+  build-feature:
+    runs-on: ubunto-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: pull and checkout from git repository
+
+        run: |
+          echo "pulling and checking out from git repository"
+
+      - name: setup java 17
+        uses: actions/setups-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 17
+
+      - name: build with maven
+        run: |
+          mvn clean install
+          echo "build with maven"
